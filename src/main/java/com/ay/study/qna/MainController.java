@@ -1,11 +1,13 @@
 package com.ay.study.qna;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
-    private final List<Article> articles = new ArrayList<>();
+    private final List<Article> articles = new ArrayList<>(
+        Arrays.asList(
+            new Article("제목1", "내용1"),
+            new Article("제목2", "내용2")
+    ));
     @RequestMapping("/")
     @ResponseBody
     public String ShowMain() {
@@ -98,15 +104,53 @@ public class MainController {
             """.formatted(id, article.getTitle(), article.getBody());
     }
 
+    @RequestMapping("deleteArticle/{id}")
+    @ResponseBody
+    public String deleteArticle (@PathVariable int id) {
+        Article article = articles
+            .stream()
+            .filter(a -> a.getId() == id)
+            .findFirst()
+            .orElse(null);
+
+        if (article == null) {
+            return "해당 글은 존재하지 않습니다.";
+        }
+
+        articles.remove(article);
+
+        return "%d번 글이 삭제되었습니다.".formatted(id);
+    }
+
+    @RequestMapping("modifyArticle/{id}")
+    @ResponseBody
+    public String deleteArticle (@PathVariable int id, @RequestParam String title, @RequestParam String body) {
+        Article article = articles
+            .stream()
+            .filter(a -> a.getId() == id)
+            .findFirst()
+            .orElse(null);
+
+        if (article == null) {
+            return "해당 글은 존재하지 않습니다.";
+        }
+
+        article.setTitle(title);
+        article.setBody(body);
+
+        return "%d번 글이 수정되었습니다.".formatted(id);
+    }
+
 }
 
 @Data
+@Setter
 @AllArgsConstructor
 class Article {
     private static int lastId = 0;
     private final int id;
-    private final String title;
-    private final String body;
+    private String title;
+    private String body;
 
     public Article(String title, String body) {
         this(++lastId, title, body);
