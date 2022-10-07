@@ -1,5 +1,7 @@
 package com.ay.study.qna;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
+    private final List<Article> articles = new ArrayList<>();
     @RequestMapping("/")
     @ResponseBody
     public String ShowMain() {
@@ -70,8 +73,29 @@ public class MainController {
     @ResponseBody
     public String addArticle(@RequestParam (defaultValue = "제목 미정") String title,@RequestParam (defaultValue = "미상") String body) {
         Article article = new Article(title, body);
+        articles.add(article);
 
         return "%d번 게시글이 생성되었습니다.".formatted(article.getId());
+    }
+
+    @RequestMapping("getArticle/{id}")
+    @ResponseBody
+    public String getArticle (@PathVariable int id) {
+        Article article = articles
+            .stream()
+            .filter(a -> a.getId() == id)
+            .findFirst()
+            .orElse(null);
+
+        if (article == null) {
+            return "해당 글은 존재하지 않습니다.";
+        }
+
+        return """
+            <h1> %d번 글 </h1>
+            <h3> 제목 : %s </h3>
+            <h3> 내용 : %s </h3>
+            """.formatted(id, article.getTitle(), article.getBody());
     }
 
 }
