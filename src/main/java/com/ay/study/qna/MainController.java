@@ -141,6 +141,15 @@ public class MainController {
         return "%d번 글이 수정되었습니다.".formatted(id);
     }
 
+    @GetMapping("/addPerson")
+    @ResponseBody
+    public String addPerson (Person person) {
+        return """
+            <h3>id : %d </h3>
+            <h3>name : %s </h3>
+            <h3>age : %d </h3>
+            """.formatted(person.getId(), person.getName(), person.getAge());
+    }
 }
 
 @Data
@@ -155,4 +164,10 @@ class Article {
     public Article(String title, String body) {
         this(++lastId, title, body);
     }
+}
+@Data
+class Person {
+    private int id;
+    private int age;
+    private String name;
 }
