@@ -2,6 +2,8 @@ package com.ay.study.qna;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,5 +64,27 @@ public class MainController {
         int age = (int) session.getAttribute("age");
 
         return "세션에 저장된 나이는 %d살 입니다.".formatted(age);
+    }
+
+    @RequestMapping("/addArticle")
+    @ResponseBody
+    public String addArticle(@RequestParam (defaultValue = "제목 미정") String title,@RequestParam (defaultValue = "미상") String body) {
+        Article article = new Article(title, body);
+
+        return "%d번 게시글이 생성되었습니다.".formatted(article.getId());
+    }
+
+}
+
+@Data
+@AllArgsConstructor
+class Article {
+    private static int lastId = 0;
+    private final int id;
+    private final String title;
+    private final String body;
+
+    public Article(String title, String body) {
+        this(++lastId, title, body);
     }
 }
