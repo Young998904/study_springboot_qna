@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +25,7 @@ public class Answer {
     private String content;
 
     private LocalDateTime createDate;
+
+    @ManyToOne // question_id 를 FK 로 하는 ForeignKey 관계 생성
+    private Question question;
 }
