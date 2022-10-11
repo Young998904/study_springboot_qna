@@ -1,5 +1,7 @@
 package com.ay.study.qna;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SbbApplicationTests {
     @Autowired
     private QuestionRepository questionRepository;
-
-    @Test
-    void contextLoads() {
-    }
 
     @Test
     void testJpa() {
@@ -29,4 +27,9 @@ class SbbApplicationTests {
         questionRepository.save(q2);  // 두번째 질문 저장
     }
 
+    @Test
+    void testJpa2() {
+        Question q = questionRepository.findBySubject("sbb가 무엇인가요?");
+        assertEquals(1, q.getId());
+    }
 }
