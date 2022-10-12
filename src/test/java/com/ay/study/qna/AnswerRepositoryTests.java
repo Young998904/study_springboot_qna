@@ -3,6 +3,7 @@ package com.ay.study.qna;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class AnswerRepositoryTests {
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
+    @Autowired
+    private EntityManager em;
     private int lastSampleDataId;
 
     @BeforeEach
@@ -66,6 +69,8 @@ public class AnswerRepositoryTests {
         a.setQuestion(q);
         a.setCreateDate(LocalDateTime.now());
         answerRepository.save(a);
+
+        em.clear();
 
         // q 다시 불러옴
         q  = questionRepository.findById(2).get();
