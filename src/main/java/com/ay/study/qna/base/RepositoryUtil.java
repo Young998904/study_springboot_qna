@@ -16,9 +16,10 @@ public interface RepositoryUtil {
     void enableForeignKeyChecks();
 
     default void truncateTable() {
-        disableForeignKeyChecks();
+        // alter table 로 auto_increment 수정시 외래키 해제 필요 없음
+//        disableForeignKeyChecks();
         truncate(); // 실행 시 AnswerRepository 와 QuestionRepository 에 있는 truncate() 가 실행됨
-        enableForeignKeyChecks();
+//        enableForeignKeyChecks();
     }
 
     void truncate();

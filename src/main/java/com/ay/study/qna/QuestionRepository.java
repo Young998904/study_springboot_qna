@@ -12,7 +12,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>, Re
 
     @Transactional
     @Modifying // @Query 에 의해 작성된 데이터 변경이 일어나는 삽입, 수정, 삭제 쿼리 메소드를 사용할 때 필요
-    @Query(value = "truncate question", nativeQuery = true)
+    @Query(value = "ALTER TABLE question AUTO_INCREMENT = 1", nativeQuery = true)
     void truncate();
 
     Question findBySubjectAndContent(String s1, String s2);

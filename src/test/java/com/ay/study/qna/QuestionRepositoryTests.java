@@ -43,10 +43,12 @@ public class QuestionRepositoryTests {
     }
 
     public static void clearData(QuestionRepository questionRepository) {
-        // 외래키 해제 중복 문제 해결 (1) RepositoryUtil 생성
-        questionRepository.disableForeignKeyChecks();
-        questionRepository.truncate();
-        questionRepository.enableForeignKeyChecks();
+//        // 외래키 해제 중복 문제 해결 (1) RepositoryUtil 생성
+//        questionRepository.disableForeignKeyChecks();
+//        questionRepository.truncate();
+//        questionRepository.enableForeignKeyChecks();
+        questionRepository.deleteAll();
+        questionRepository.truncateTable();
     }
 
     private void clearData() {

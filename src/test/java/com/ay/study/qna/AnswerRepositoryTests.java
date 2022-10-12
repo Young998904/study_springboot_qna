@@ -24,7 +24,8 @@ public class AnswerRepositoryTests {
 
     private void clearData() {
         QuestionRepositoryTests.clearData(questionRepository);
-
+        // truncate 대신 auto_increment 1로 초기화시 delete 메소드를 통해서도 삭제 가능
+        answerRepository.deleteAll();
         // 외래키 해제 중복 해결 (2) RepositoryUtil 속 interface 의 default 메소드 활용
         answerRepository.truncateTable();
     }
