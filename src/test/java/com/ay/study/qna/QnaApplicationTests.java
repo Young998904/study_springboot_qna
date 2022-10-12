@@ -67,4 +67,22 @@ class SbbApplicationTests {
 
         assertThat(questionList.size()).isEqualTo(1);
     }
+
+    @Test
+    void 질문_수정() {
+        Question q = questionRepository.findById(1).orElse(null);
+
+        if (q == null) {
+            throw new RuntimeException();
+        }
+
+        q.setSubject("제목1 수정");
+
+        questionRepository.save(q);
+
+        // 다시 불러옴
+        q = questionRepository.findById(1).orElse(null);
+
+        assertThat(q.getSubject()).isEqualTo("제목1 수정");
+    }
 }
