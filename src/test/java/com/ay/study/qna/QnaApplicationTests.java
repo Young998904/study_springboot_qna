@@ -13,6 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SbbApplicationTests {
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private AnswerRepository answerRepository;
+
     private static int lastSampleDataId = 0;
     @BeforeEach
     void 실행전_초기화() {
@@ -22,6 +25,7 @@ class SbbApplicationTests {
     private void clearData() {
         questionRepository.disableForeignKeyChecks();
         questionRepository.truncate();
+        answerRepository.truncate();;
         questionRepository.enableForeignKeyChecks();
     }
     private void createData() {
@@ -84,5 +88,29 @@ class SbbApplicationTests {
         q = questionRepository.findById(1).orElse(null);
 
         assertThat(q.getSubject()).isEqualTo("제목1 수정");
+    }
+
+    @Test
+    void 답변_저장() {
+        Question q = questionRepository.findById(1).orElse(null);
+
+        if (q == null) {
+            throw new RuntimeException();
+        }
+
+        Answer answer = new Answer();
+
+        answer.setQuestion(q);
+        answer.setContent("답변");
+        answer.setCreateDate(LocalDateTime.now());
+
+        answerRepository.save(answer);
+
+//        // 다시 불러옴
+//        q = questionRepository.findById(1).orElse(null);
+//
+//        List<Answer> answerList = q.getAnswerList();
+//
+//        assertThat(answerList.size()).isEqualTo(1);
     }
 }
