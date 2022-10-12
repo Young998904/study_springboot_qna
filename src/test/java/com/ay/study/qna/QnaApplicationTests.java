@@ -1,69 +1,70 @@
 package com.ay.study.qna;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 class SbbApplicationTests {
     @Autowired
     private QuestionRepository questionRepository;
-    @Autowired
-    private AnswerRepository answerRepository;
-
-    @Test
-    void testJpa() {
-        Question q1 = new Question();
-        q1.setSubject("sbb가 무엇인가요?");
-        q1.setContent("sbb에 대해서 알고 싶습니다.");
-        q1.setCreateDate(LocalDateTime.now());
-        questionRepository.save(q1);  // 첫번째 질문 저장
-
-        Question q2 = new Question();
-        q2.setSubject("스프링부트 모델 질문입니다.");
-        q2.setContent("id는 자동으로 생성되나요?");
-        q2.setCreateDate(LocalDateTime.now());
-        questionRepository.save(q2);  // 두번째 질문 저장
-
+    private static int lastSampleDataId = 0;
+    @BeforeEach
+    void 실행전_초기화() {
+        clearData();
+        createData();
+    }
+    private void clearData() {
         questionRepository.disableForeignKeyChecks();
         questionRepository.truncate();
         questionRepository.enableForeignKeyChecks();
     }
+    private void createData() {
+        Question question1 = new Question();
+        question1.setSubject("제목1");
+        question1.setContent("내용1");
+        question1.setCreateDate(LocalDateTime.now());
+        questionRepository.save(question1);
 
+        Question question2 = new Question();
+        question2.setSubject("제목2");
+        question2.setContent("내용2");
+        question2.setCreateDate(LocalDateTime.now());
+        questionRepository.save(question2);
+    }
     @Test
-    void testJpa2() {
-        Question q = questionRepository.findBySubject("sbb가 무엇인가요?");
-        assertEquals(1, q.getId());
+    void 질문_저장 () {
+        Question question3 = new Question();
+        question3.setSubject("제목3");
+        question3.setContent("내용3");
+        question3.setCreateDate(LocalDateTime.now());
+        questionRepository.save(question3);
+
+        // 방법 (1)
+        List<Question> questionList = questionRepository.findAll();
+        assertThat(questionList.size()).isEqualTo(3);
+
+        // 방법 (2)
+        assertThat(question3.getId()).isEqualTo(lastSampleDataId + 3);
     }
 
     @Test
-    void testJpa3() {
-        Optional<Question> oq = questionRepository.findById(2);
-        assertTrue(oq.isPresent());
-        Question q = oq.get();
+    void 질문_삭제() {
+        Question q = questionRepository.findById(1).orElse(null);
 
-        Answer a1 = new Answer();
-        a1.setContent("답변");
-        a1.setCreateDate(LocalDateTime.now());
-        a1.setQuestion(q);
-        answerRepository.save(a1);
-    }
+        if (q == null) {
+            throw new RuntimeException();
+        }
 
-    @Transactional // 테스트 시에만 DB 세션이 findById 수행 후 종료되어서 생기는 문제 해결 (세션 유지 어노테이션)
-    @Test
-    void testJpa4() {
-        Optional<Question> oq = questionRepository.findById(2);
-        assertTrue(oq.isPresent());
-        Question q = oq.get();
+        questionRepository.delete(q);
 
-        List<Answer> answerList = q.getAnswerList();
-        assertEquals(1, answerList.size());
+        List<Question> questionList = questionRepository.findAll();
+
+        assertThat(questionList.size()).isEqualTo(1);
     }
 }
