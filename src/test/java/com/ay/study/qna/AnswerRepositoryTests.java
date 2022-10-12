@@ -66,7 +66,7 @@ public class AnswerRepositoryTests {
     @Test
     @Transactional
     @Rollback(false)
-    void 저장() {
+    void 저장_1() {
         // SELECT * FORM question WHERE id=1
         Question q = questionRepository.findById(2).get();
         // 테스트 코드에서는 이 과정에서 DB 통신이 끊김
@@ -79,7 +79,9 @@ public class AnswerRepositoryTests {
         a.setCreateDate(LocalDateTime.now());
         answerRepository.save(a);
 
+        // 객체 수준의 저장
         q.getAnswerList().add(a);
+        // 실제 DB 저장
         questionRepository.save(q);
 
 //        em.clear();
@@ -91,6 +93,29 @@ public class AnswerRepositoryTests {
 
         List<Answer> answerList = q.getAnswerList();
         assertThat(answerList.size()).isEqualTo(1);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    // CascadeType.ALL 적용
+    void 저장_2() {
+        Question q = questionRepository.findById(2).get();
+
+        Answer a1 = new Answer();
+        a1.setContent("답변1");
+        a1.setCreateDate(LocalDateTime.now());
+        q.addAnswer(a1);
+
+        Answer a2 = new Answer();
+        a2.setContent("답변2");
+        a2.setCreateDate(LocalDateTime.now());
+        q.addAnswer(a2);
+
+        // 해당 메소드 하나로 모든 변 경 내용 저장 되도록
+        questionRepository.save(q);
+
+        assertThat(q.getAnswerList().size()).isEqualTo(2);
     }
 
     @Test

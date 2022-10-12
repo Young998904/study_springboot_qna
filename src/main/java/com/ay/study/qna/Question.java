@@ -25,7 +25,8 @@ public class Question {
 
     private LocalDateTime createDate;
 
-    @OneToMany (mappedBy = "question", cascade = CascadeType.REMOVE)
+    // cascade : 영속성 전이
+    @OneToMany (mappedBy = "question", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     private List<Answer> answerList = new ArrayList<>();
 
 
