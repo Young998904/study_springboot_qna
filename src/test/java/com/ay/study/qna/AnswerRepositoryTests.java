@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 public class AnswerRepositoryTests {
@@ -50,6 +52,8 @@ public class AnswerRepositoryTests {
     }
 
     @Test
+    @Transactional
+    @Rollback(false)
     void 저장() {
         // SELECT * FORM question WHERE id=1
         Question q = questionRepository.findById(2).get();
