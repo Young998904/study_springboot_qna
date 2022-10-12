@@ -1,5 +1,7 @@
 package com.ay.study.qna;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,25 @@ public class AnswerRepositoryTests {
         QuestionRepositoryTests.clearData(questionRepository);
 
         // 외래키 해제 중복 해결 (2) RepositoryUtil 속 interface 의 default 메소드 활용
-        questionRepository.truncateTable();
+        answerRepository.truncateTable();
     }
 
     private void createSampleData() {
         QuestionRepositoryTests.createSampleData(questionRepository);
+
+        Question q = questionRepository.findById(1).get();
+
+        Answer a1 = new Answer();
+        a1.setContent("sbb 는 질문답변 게시판 입니다.");
+        a1.setQuestion(q);
+        a1.setCreateDate(LocalDateTime.now());
+        answerRepository.save(a1);
+
+        Answer a2 = new Answer();
+        a2.setContent("sbb에서는 주로 스프링 부트 관련 내용을 다룹니다.");
+        a2.setQuestion(q);
+        a2.setCreateDate(LocalDateTime.now());
+        answerRepository.save(a2);
     }
 
     @Test
@@ -40,5 +56,11 @@ public class AnswerRepositoryTests {
         a.setQuestion(q);
         a.setCreateDate(LocalDateTime.now());
         answerRepository.save(a);
+    }
+
+    @Test
+    void 조회() {
+        Answer a = answerRepository.findById(1).get();
+        assertThat(a.getContent()).isEqualTo("sbb 는 질문답변 게시판 입니다.");
     }
 }
