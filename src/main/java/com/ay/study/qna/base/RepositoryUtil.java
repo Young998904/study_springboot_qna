@@ -14,4 +14,12 @@ public interface RepositoryUtil {
     @Modifying
     @Query(value = "SET FOREIGN_KEY_CHECKS = 1", nativeQuery = true)
     void enableForeignKeyChecks();
+
+    default void truncateTable() {
+        disableForeignKeyChecks();
+        truncate(); // 실행 시 AnswerRepository 와 QuestionRepository 에 있는 truncate() 가 실행됨
+        enableForeignKeyChecks();
+    }
+
+    void truncate();
 }

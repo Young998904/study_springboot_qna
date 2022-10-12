@@ -23,9 +23,8 @@ public class AnswerRepositoryTests {
     private void clearData() {
         QuestionRepositoryTests.clearData(questionRepository);
 
-        questionRepository.disableForeignKeyChecks();
-        answerRepository.truncate();
-        questionRepository.enableForeignKeyChecks();
+        // 외래키 해제 중복 해결 (2) RepositoryUtil 속 interface 의 default 메소드 활용
+        questionRepository.truncateTable();
     }
 
     private void createSampleData() {
