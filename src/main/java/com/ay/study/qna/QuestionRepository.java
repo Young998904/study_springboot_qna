@@ -1,5 +1,6 @@
 package com.ay.study.qna;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +23,8 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     @Modifying
     @Query(value = "SET FOREIGN_KEY_CHECKS = 1", nativeQuery = true)
     void enableForeignKeyChecks();
+
+    Question findBySubjectAndContent(String s1, String s2);
+
+    List<Question> findBySubjectLike(String s);
 }
