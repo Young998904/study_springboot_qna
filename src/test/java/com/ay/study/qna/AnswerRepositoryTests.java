@@ -59,6 +59,8 @@ public class AnswerRepositoryTests {
         Question q = questionRepository.findById(2).get();
         // 테스트 코드에서는 이 과정에서 DB 통신이 끊김
 
+        System.out.println("첫번째 호출 question 객체 : " + q);
+
         Answer a = new Answer();
         a.setContent("네 자동으로 생성됩니다.");
         a.setQuestion(q);
@@ -67,6 +69,8 @@ public class AnswerRepositoryTests {
 
         // q 다시 불러옴
         q  = questionRepository.findById(2).get();
+
+        System.out.println("두번째 호출 question 객체 : " + q);
 
         List<Answer> answerList = q.getAnswerList();
         assertThat(answerList.size()).isEqualTo(1);
