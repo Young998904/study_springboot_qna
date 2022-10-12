@@ -2,6 +2,7 @@ package com.ay.study.qna;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,13 +51,21 @@ public class AnswerRepositoryTests {
 
     @Test
     void 저장() {
+        // SELECT * FORM question WHERE id=1
         Question q = questionRepository.findById(2).get();
+        // 테스트 코드에서는 이 과정에서 DB 통신이 끊김
 
         Answer a = new Answer();
         a.setContent("네 자동으로 생성됩니다.");
         a.setQuestion(q);
         a.setCreateDate(LocalDateTime.now());
         answerRepository.save(a);
+
+        // q 다시 불러옴
+        q  = questionRepository.findById(2).get();
+
+        List<Answer> answerList = q.getAnswerList();
+        assertThat(answerList.size()).isEqualTo(1);
     }
 
     @Test
