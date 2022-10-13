@@ -1,4 +1,4 @@
-package com.ay.study.qna;
+package com.ay.study.qna.answer;
 
 import com.ay.study.qna.base.RepositoryUtil;
 import org.springframework.data.jpa.repository.JpaRepository;

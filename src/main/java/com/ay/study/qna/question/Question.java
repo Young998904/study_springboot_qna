@@ -1,5 +1,6 @@
-package com.ay.study.qna;
+package com.ay.study.qna.question;
 
+import com.ay.study.qna.answer.Answer;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;

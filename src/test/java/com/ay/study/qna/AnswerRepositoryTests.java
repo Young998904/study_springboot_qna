@@ -2,8 +2,11 @@ package com.ay.study.qna;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.ay.study.qna.answer.Answer;
+import com.ay.study.qna.answer.AnswerRepository;
+import com.ay.study.qna.question.Question;
+import com.ay.study.qna.question.QuestionRepository;
 import java.util.List;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

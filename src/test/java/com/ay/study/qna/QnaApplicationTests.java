@@ -2,6 +2,10 @@ package com.ay.study.qna;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.ay.study.qna.answer.Answer;
+import com.ay.study.qna.answer.AnswerRepository;
+import com.ay.study.qna.question.Question;
+import com.ay.study.qna.question.QuestionRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +29,7 @@ class SbbApplicationTests {
     private void clearData() {
         questionRepository.disableForeignKeyChecks();
         questionRepository.truncate();
-        answerRepository.truncate();;
+        answerRepository.truncate();
         questionRepository.enableForeignKeyChecks();
     }
     private void createData() {

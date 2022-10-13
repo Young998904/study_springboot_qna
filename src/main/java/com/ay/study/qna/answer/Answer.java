@@ -1,5 +1,6 @@
-package com.ay.study.qna;
+package com.ay.study.qna.answer;
 
+import com.ay.study.qna.question.Question;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.ay.study.qna;
+package com.ay.study.qna.question;
 
 import com.ay.study.qna.base.RepositoryUtil;
 import java.util.List;
