@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 public class QuestionController {
-    private final QuestionRepository questionRepository;
+    private final QuestionService questionService;
 
     @RequestMapping("/question/list")
     public String showMain(Model model) {
-        List<Question> questionList = questionRepository.findAll();
+        List<Question> questionList = questionService.getQuestionList();
         model.addAttribute("questionList",questionList);
         return "question_list";
     }
