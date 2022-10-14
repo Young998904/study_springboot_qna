@@ -21,9 +21,7 @@ public class AnswerService {
         }
         addAnswer addAnswer = new addAnswer(content, question);
 
-        System.out.println(addAnswer);
         Answer answer = modelMapper.map(addAnswer, Answer.class);
-        System.out.println(answer);
 
         answerRepository.save(answer);
     }

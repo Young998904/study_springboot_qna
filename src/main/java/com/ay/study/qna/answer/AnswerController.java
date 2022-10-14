@@ -17,6 +17,10 @@ public class AnswerController {
     @PostMapping("/create/{id}")
     @ResponseBody
     public String createAnswer(@PathVariable int id, @RequestParam (defaultValue = "") String content) {
+
+        if (content.equals("")) {
+            return "답변을 입력해주세요";
+        }
         answerService.createAnswer(id,content);
         return "답변이 등록되었습니다.";
     }
