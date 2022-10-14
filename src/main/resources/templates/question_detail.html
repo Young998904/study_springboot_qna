@@ -4,6 +4,12 @@
 <div th:text="|내용 : ${questionDetail.content}|"></div>
 
 <form th:action="@{|/answer/create/${questionDetail.id}|}" method="POST">
+<!-- label 엘리멘트의 for 와 textarea 엘리먼트의 id 가 Mapping 됨 -->
+  <label for="content">답변 내용</label>
+<!--  textarea 의 name 이 Controller 의 파라미터명과 일치해야함-->
   <textarea name="content" id="content" rows="15"></textarea>
-  <input type="submit" value="답변등록">
+<!-- 제출 방법 (1) -->
+<!--  <input type="submit" value="답변등록">-->
+<!-- 제출 방법 (2) -->
+  <button type="submit"> 답변 등록 </button>
 </form>
