@@ -12,9 +12,11 @@ public class QuestionDto {
     public static class QuestionInfo {
         private String subject;
         private LocalDateTime createDate;
+        private Integer id;
 
         public static QuestionInfo fromEntity(Question question) {
             return QuestionInfo.builder()
+                .id(question.getId())
                 .subject(question.getSubject())
                 .createDate(question.getCreateDate())
                 .build();
