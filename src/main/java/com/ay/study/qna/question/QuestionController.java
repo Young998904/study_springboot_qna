@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/question")
 @RequiredArgsConstructor
 public class QuestionController {
     private final QuestionService questionService;
@@ -28,7 +29,7 @@ public class QuestionController {
 //        return questionService.getQuestionList();
 //    }
 
-    @RequestMapping("/question/list")
+    @RequestMapping("/list")
     public String showDtoList (Model model) {
         List<QuestionInfo> questionDtoList = questionService.getQuestionDtoList();
         model.addAttribute("questionDtoList",questionDtoList);
@@ -42,7 +43,7 @@ public class QuestionController {
 //    }
 
     // 질문 상세페이지
-    @RequestMapping("/question/detail/{id}")
+    @RequestMapping("/detail/{id}")
     public String showQuestionDetail (@PathVariable int id, Model model) {
         QuestionDetail questionDetail = questionService.getQuestionDetail(id);
 
