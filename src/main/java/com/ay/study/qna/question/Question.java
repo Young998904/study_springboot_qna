@@ -1,6 +1,8 @@
 package com.ay.study.qna.question;
 
 import com.ay.study.qna.answer.Answer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -28,6 +30,10 @@ public class Question {
 
     // cascade : 영속성 전이
     @OneToMany (mappedBy = "question", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    // 순환 참조 해결 방법 (2) : 부모 Entity 와 자식 Entity 관계 명시
+    @JsonManagedReference
+//    // 순환참조 해결 방법 (1) : 아예 없는 데이터 처리
+//    @JsonIgnore
     private List<Answer> answerList = new ArrayList<>();
 
 

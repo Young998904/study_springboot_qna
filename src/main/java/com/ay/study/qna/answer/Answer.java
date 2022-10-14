@@ -1,6 +1,8 @@
 package com.ay.study.qna.answer;
 
 import com.ay.study.qna.question.Question;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,5 +27,7 @@ public class Answer {
     private LocalDateTime createDate;
 
     @ManyToOne // question_id 를 FK 로 하는 ForeignKey 관계 생성
+    // 순환 참조 해결 방법 (2) : 부모 Entity 와 자식 Entity 관계 명시
+    @JsonBackReference
     private Question question;
 }
