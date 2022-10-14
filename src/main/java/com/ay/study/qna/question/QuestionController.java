@@ -1,10 +1,12 @@
 package com.ay.study.qna.question;
 
+import com.ay.study.qna.question.QuestionDto.QuestionDetail;
 import com.ay.study.qna.question.QuestionDto.QuestionInfo;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -37,4 +39,12 @@ public class QuestionController {
 //    public List<QuestionInfo> DtoListData () {
 //        return questionService.getQuestionDtoList();
 //    }
+
+    // 질문 상세페이지
+    @RequestMapping("/question/detail/{id}")
+    public String showQuestionDetail (@PathVariable int id, Model model) {
+        QuestionDetail questionDetail = questionService.getQuestionDetail(id);
+        model.addAttribute("questionDetail", questionDetail);
+        return "question_detail";
+    }
 }

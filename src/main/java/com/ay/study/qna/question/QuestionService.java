@@ -1,5 +1,6 @@
 package com.ay.study.qna.question;
 
+import com.ay.study.qna.question.QuestionDto.QuestionDetail;
 import com.ay.study.qna.question.QuestionDto.QuestionInfo;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,5 +18,10 @@ public class QuestionService {
     public List<QuestionInfo> getQuestionDtoList() {
         return questionRepository.findAll().stream()
             .map(QuestionInfo::fromEntity).collect(Collectors.toList());
+    }
+
+    public QuestionDetail getQuestionDetail(int id) {
+        return questionRepository.findById(id)
+            .map(QuestionDetail::fromEntity).orElse(null);
     }
 }
