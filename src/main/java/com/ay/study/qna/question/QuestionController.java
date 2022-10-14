@@ -1,5 +1,6 @@
 package com.ay.study.qna.question;
 
+import com.ay.study.qna.DataNotFoundException;
 import com.ay.study.qna.question.QuestionDto.QuestionDetail;
 import com.ay.study.qna.question.QuestionDto.QuestionInfo;
 import java.util.List;
@@ -44,6 +45,11 @@ public class QuestionController {
     @RequestMapping("/question/detail/{id}")
     public String showQuestionDetail (@PathVariable int id, Model model) {
         QuestionDetail questionDetail = questionService.getQuestionDetail(id);
+
+        if (questionDetail == null) {
+            throw new DataNotFoundException("question not found");
+        }
+
         model.addAttribute("questionDetail", questionDetail);
         return "question_detail";
     }
