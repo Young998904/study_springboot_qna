@@ -19,9 +19,10 @@ public class AnswerService {
         if (question == null) {
             throw new DataNotFoundException("question not found");
         }
-        addAnswer addAnswer = new addAnswer(content, question);
+        addAnswer addAnswer = new addAnswer(content);
 
         Answer answer = modelMapper.map(addAnswer, Answer.class);
+        question.addAnswer(answer);
 
         answerRepository.save(answer);
     }

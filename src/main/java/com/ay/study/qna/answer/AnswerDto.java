@@ -15,10 +15,10 @@ public class AnswerDto {
         private LocalDateTime createDate;
         private Question question;
 
-        public addAnswer (String content, Question question) {
+        public addAnswer (String content) {
             this.content = content;
-            this.question = question;
             this.createDate = LocalDateTime.now();
+
         }
     }
 }
