@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<html  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
 
-<div class="container my-3">
+<div layout:fragment="content" class="container my-3">
   <table class="table">
     <thead class="table-dark">
     <tr>
@@ -11,13 +11,16 @@
     </tr>
     </thead>
     <tbody>
-      <tr th:each="question, loop : ${questionDtoList}">
-        <td th:text="${loop.count}"></td>
-        <td>
-          <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
-        </td>
-        <td th:text="${#temporals.format(question.createDate, 'yy-MM-dd HH:mm')}"></td>
-      </tr>
+    <tr th:each="question, loop : ${questionDtoList}">
+      <td th:text="${loop.count}"></td>
+      <td>
+        <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+      </td>
+      <td th:text="${#temporals.format(question.createDate, 'yy-MM-dd HH:mm')}"></td>
+    </tr>
     </tbody>
   </table>
+
 </div>
+
+</html>
