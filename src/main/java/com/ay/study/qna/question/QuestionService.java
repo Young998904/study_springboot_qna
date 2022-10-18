@@ -24,4 +24,10 @@ public class QuestionService {
         return questionRepository.findById(id)
             .map(QuestionDetail::fromEntity).orElse(null);
     }
+
+    public void createQuestion(String subject, String content) {
+        Question question = new Question(subject, content);
+
+        questionRepository.save(question);
+    }
 }

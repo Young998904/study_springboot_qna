@@ -7,7 +7,9 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -53,5 +55,17 @@ public class QuestionController {
 
         model.addAttribute("questionDetail", questionDetail);
         return "question_detail";
+    }
+
+    // 질문 등록페이지 (GET)
+    @GetMapping("/create")
+    public String showCreateForm() {
+        return "question_form";
+    }
+    // 질문 등록 (POST)
+    @PostMapping("/create")
+    public String createQuestion(QuestionDto.RequestQuestionForm requestQuestionForm) {
+        questionService.createQuestion(requestQuestionForm.getSubject(), requestQuestionForm.getContent());
+        return "redirect:/question/list";
     }
 }

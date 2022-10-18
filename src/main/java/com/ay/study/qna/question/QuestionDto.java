@@ -44,4 +44,11 @@ public class QuestionDto {
                 .build();
         }
     }
+
+    @Getter
+    @Setter
+    public static class RequestQuestionForm {
+        private String subject;
+        private String content;
+    }
 }
