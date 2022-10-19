@@ -1,7 +1,8 @@
 package com.ay.study.qna.answer;
 
+import static com.ay.study.qna.answer.AnswerDto.*;
+
 import com.ay.study.qna.DataNotFoundException;
-import com.ay.study.qna.answer.AnswerDto.addAnswer;
 import com.ay.study.qna.question.Question;
 import com.ay.study.qna.question.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,11 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
     private final QuestionRepository questionRepository;
     private final ModelMapper modelMapper;
-    public void createAnswer(int id, String content) {
+    public void createAnswer(int id, AddAnswer addAnswer) {
         Question question = questionRepository.findById(id).orElse(null);
         if (question == null) {
             throw new DataNotFoundException("question not found");
         }
-        addAnswer addAnswer = new addAnswer(content);
 
         Answer answer = modelMapper.map(addAnswer, Answer.class);
         question.addAnswer(answer);

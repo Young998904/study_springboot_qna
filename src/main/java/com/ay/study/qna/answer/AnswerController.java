@@ -1,27 +1,35 @@
 package com.ay.study.qna.answer;
 
+import static com.ay.study.qna.answer.AnswerDto.*;
+
+import com.ay.study.qna.question.QuestionDto.QuestionDetail;
+import com.ay.study.qna.question.QuestionService;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/answer")
 @RequiredArgsConstructor
 public class AnswerController {
     private final AnswerService answerService;
+    private final QuestionService questionService;
 
     @PostMapping("/create/{id}")
-    @ResponseBody
-    public String createAnswer(@PathVariable int id, @RequestParam (defaultValue = "") String content) {
-
-        if (content.equals("")) {
-            return "답변을 입력해주세요";
+    public String createAnswer(@PathVariable int id, @Valid AddAnswer addAnswer, BindingResult bindingResult, QuestionDetail questionDetail, Model model) {
+        if (bindingResult.hasErrors()) {
+            questionDetail = questionService.getQuestionDetail(id);
+            model.addAttribute("questionDetail", questionDetail);
+            return "question_detail";
         }
-        answerService.createAnswer(id,content);
-        return "답변이 등록되었습니다.";
+        answerService.createAnswer(id,addAnswer);
+        questionDetail = questionService.getQuestionDetail(id);
+        model.addAttribute("questionDetail", questionDetail);
+        return "question_detail";
     }
 }

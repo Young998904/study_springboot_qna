@@ -1,6 +1,7 @@
 package com.ay.study.qna.question;
 
 import com.ay.study.qna.DataNotFoundException;
+import com.ay.study.qna.answer.AnswerDto.AddAnswer;
 import com.ay.study.qna.question.QuestionDto.QuestionDetail;
 import com.ay.study.qna.question.QuestionDto.QuestionInfo;
 import com.ay.study.qna.question.QuestionDto.RequestQuestionForm;
@@ -49,7 +50,7 @@ public class QuestionController {
 
     // 질문 상세페이지
     @RequestMapping("/detail/{id}")
-    public String showQuestionDetail (@PathVariable int id, Model model) {
+    public String showQuestionDetail (@PathVariable int id, Model model, AddAnswer addAnswer) {
         QuestionDetail questionDetail = questionService.getQuestionDetail(id);
 
         if (questionDetail == null) {
@@ -69,7 +70,6 @@ public class QuestionController {
     @PostMapping("/create")
     public String createQuestion(@Valid RequestQuestionForm requestQuestionForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            System.out.println("Error Count : " + bindingResult.getErrorCount());
             return "question_form";
         }
         questionService.createQuestion(requestQuestionForm.getSubject(), requestQuestionForm.getContent());
