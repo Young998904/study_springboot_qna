@@ -3,10 +3,13 @@ package com.ay.study.qna.question;
 import com.ay.study.qna.DataNotFoundException;
 import com.ay.study.qna.question.QuestionDto.QuestionDetail;
 import com.ay.study.qna.question.QuestionDto.QuestionInfo;
+import com.ay.study.qna.question.QuestionDto.RequestQuestionForm;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,12 +62,16 @@ public class QuestionController {
 
     // 질문 등록페이지 (GET)
     @GetMapping("/create")
-    public String showCreateForm() {
+    public String showCreateForm(RequestQuestionForm requestQuestionForm) {
         return "question_form";
     }
     // 질문 등록 (POST)
     @PostMapping("/create")
-    public String createQuestion(QuestionDto.RequestQuestionForm requestQuestionForm) {
+    public String createQuestion(@Valid RequestQuestionForm requestQuestionForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("Error Count : " + bindingResult.getErrorCount());
+            return "question_form";
+        }
         questionService.createQuestion(requestQuestionForm.getSubject(), requestQuestionForm.getContent());
         return "redirect:/question/list";
     }
