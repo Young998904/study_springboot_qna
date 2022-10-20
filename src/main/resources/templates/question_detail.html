@@ -36,9 +36,7 @@
 
   <!-- 답변 작성 -->
   <form th:action="@{|/answer/create/${questionDetail.id}|}" th:object="${addAnswer}" method="post" class="my-3">
-    <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
-      <div th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
-    </div>
+    <div th:replace="form_errors::formErrorsFragment"></div>
     <!-- label 엘리멘트의 for 와 textarea 엘리먼트의 id 가 Mapping 됨 -->
     <label for="content">답변 내용</label>
     <!--  textarea 의 name 이 Controller 의 파라미터명과 일치해야함-->

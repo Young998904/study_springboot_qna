@@ -3,9 +3,8 @@
 
 <div layout:fragment="content" class="container my-3">
   <form method="POST" th:action="@{/question/create}" th:object="${requestQuestionForm}"  class="my-3">
-    <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
-      <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
-    </div>
+    <!--  form_errors 에 있는 formErrorsFragment 로 대체한다.  -->
+    <div th:replace="form_errors::formErrorsFragment"></div>
     <div class="mb-3">
       <label for="subject"> 질문 제목</label>
       <input type="text" id="subject" name="subject" th:field="*{subject}" class="form-control">
