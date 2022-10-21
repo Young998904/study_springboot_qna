@@ -36,6 +36,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     // modelMapper 의존성 추가
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.0'
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // thymeleaf 에서 Spring Security 를 사용하기 위한
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 }
 
 tasks.named('test') {
