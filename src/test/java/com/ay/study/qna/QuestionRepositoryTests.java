@@ -1,5 +1,6 @@
 package com.ay.study.qna;
 
+import com.ay.study.qna.answer.Answer;
 import com.ay.study.qna.question.Question;
 import com.ay.study.qna.question.QuestionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.test.annotation.Rollback;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -124,5 +126,17 @@ public class QuestionRepositoryTests {
         Question q = qList.get(0);
 
         assertThat(q.getSubject()).isEqualTo("sbb가 무엇인가요?");
+    }
+
+    @Test
+    @Rollback(false)
+    void 대량의_데이터_생성() {
+        for (int i=3; i<=100; i++) {
+            Question q = new Question();
+            q.setSubject("제목 %d".formatted(i));
+            q.setContent("내용 %d".formatted(i));
+            q.setCreateDate(LocalDateTime.now());
+            questionRepository.save(q);
+        }
     }
 }

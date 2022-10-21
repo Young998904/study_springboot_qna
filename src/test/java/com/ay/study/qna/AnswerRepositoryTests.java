@@ -58,10 +58,10 @@ public class AnswerRepositoryTests {
         a2.setQuestion(q);
         a2.setCreateDate(LocalDateTime.now());
         // 코드 개선
-//        answerRepository.save(a2);
-//
-//        q.getAnswerList().add(a2);
-        q.addAnswer(a2);
+        answerRepository.save(a2);
+
+        q.getAnswerList().add(a2);
+//        q.addAnswer(a2);
 
         questionRepository.save(q);
     }
@@ -116,7 +116,10 @@ public class AnswerRepositoryTests {
         q.addAnswer(a2);
 
         // 해당 메소드 하나로 모든 변 경 내용 저장 되도록
-        questionRepository.save(q);
+
+//        questionRepository.save(q);
+        answerRepository.save(a1);
+        answerRepository.save(a2);
 
         assertThat(q.getAnswerList().size()).isEqualTo(2);
     }
