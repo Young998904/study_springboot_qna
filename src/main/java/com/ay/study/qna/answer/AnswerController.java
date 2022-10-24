@@ -25,11 +25,11 @@ public class AnswerController {
         if (bindingResult.hasErrors()) {
             questionDetail = questionService.getQuestionDetail(id);
             model.addAttribute("questionDetail", questionDetail);
-            return "question_detail";
+            return "/question/question_detail";
         }
         answerService.createAnswer(id,addAnswer);
         questionDetail = questionService.getQuestionDetail(id);
         model.addAttribute("questionDetail", questionDetail);
-        return "question_detail";
+        return "/question/question_detail";
     }
 }

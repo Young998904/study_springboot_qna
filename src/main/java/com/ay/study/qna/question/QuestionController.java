@@ -39,7 +39,7 @@ public class QuestionController {
     public String showDtoList (Model model) {
         List<QuestionInfo> questionDtoList = questionService.getQuestionDtoList();
         model.addAttribute("questionDtoList",questionDtoList);
-        return "question_list";
+        return "/question/question_list";
     }
 
 //    @RequestMapping("/question/dtolist/data")
@@ -58,19 +58,19 @@ public class QuestionController {
         }
 
         model.addAttribute("questionDetail", questionDetail);
-        return "question_detail";
+        return "/question/question_detail";
     }
 
     // 질문 등록페이지 (GET)
     @GetMapping("/create")
     public String showCreateForm(RequestQuestionForm requestQuestionForm) {
-        return "question_form";
+        return "/question/question_form";
     }
     // 질문 등록 (POST)
     @PostMapping("/create")
     public String createQuestion(@Valid RequestQuestionForm requestQuestionForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "question_form";
+            return "/question/question_form";
         }
         questionService.createQuestion(requestQuestionForm.getSubject(), requestQuestionForm.getContent());
         return "redirect:/question/list";
