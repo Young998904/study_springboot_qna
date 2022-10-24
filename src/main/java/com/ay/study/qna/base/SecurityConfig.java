@@ -1,4 +1,4 @@
-package com.ay.study.qna;
+package com.ay.study.qna.base;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

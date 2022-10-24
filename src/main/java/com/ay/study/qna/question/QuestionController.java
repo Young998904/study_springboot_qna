@@ -1,6 +1,6 @@
 package com.ay.study.qna.question;
 
-import com.ay.study.qna.DataNotFoundException;
+import com.ay.study.qna.base.DataNotFoundException;
 import com.ay.study.qna.answer.AnswerDto.AddAnswer;
 import com.ay.study.qna.question.QuestionDto.QuestionDetail;
 import com.ay.study.qna.question.QuestionDto.QuestionInfo;

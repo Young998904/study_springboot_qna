@@ -2,7 +2,7 @@ package com.ay.study.qna.answer;
 
 import static com.ay.study.qna.answer.AnswerDto.*;
 
-import com.ay.study.qna.DataNotFoundException;
+import com.ay.study.qna.base.DataNotFoundException;
 import com.ay.study.qna.question.Question;
 import com.ay.study.qna.question.QuestionRepository;
 import lombok.RequiredArgsConstructor;
