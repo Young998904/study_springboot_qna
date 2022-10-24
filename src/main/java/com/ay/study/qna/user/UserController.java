@@ -1,6 +1,6 @@
-package com.ay.study.qna.SiteUser;
+package com.ay.study.qna.user;
 
-import com.ay.study.qna.SiteUser.SiteUserDto.UserCreateForm;
+import com.ay.study.qna.user.SiteUserDto.UserCreateForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

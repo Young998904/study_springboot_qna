@@ -1,14 +1,13 @@
 package com.ay.study.qna.base;
 
-import com.ay.study.qna.SiteUser.SiteUser;
-import com.ay.study.qna.SiteUser.UserRepository;
+import com.ay.study.qna.user.SiteUser;
+import com.ay.study.qna.user.UserRepository;
 import com.ay.study.qna.answer.Answer;
 import com.ay.study.qna.answer.AnswerRepository;
 import com.ay.study.qna.question.Question;
 import com.ay.study.qna.question.QuestionRepository;
 import java.time.LocalDateTime;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,4 +1,4 @@
-package com.ay.study.qna.SiteUser;
+package com.ay.study.qna.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.ay.study.qna.SiteUser;
+package com.ay.study.qna.user;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

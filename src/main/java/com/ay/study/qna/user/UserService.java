@@ -1,4 +1,4 @@
-package com.ay.study.qna.SiteUser;
+package com.ay.study.qna.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
