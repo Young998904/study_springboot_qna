@@ -1,6 +1,7 @@
 package com.ay.study.qna.question;
 
 import com.ay.study.qna.answer.Answer;
+import com.ay.study.qna.user.SiteUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public class Question {
 //    @JsonIgnore
     private List<Answer> answerList = new ArrayList<>();
 
+    @ManyToOne
+    private SiteUser author;
 
     public void addAnswer(Answer answer) {
         answer.setQuestion(this);

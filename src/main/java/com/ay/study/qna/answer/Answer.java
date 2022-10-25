@@ -1,6 +1,7 @@
 package com.ay.study.qna.answer;
 
 import com.ay.study.qna.question.Question;
+import com.ay.study.qna.user.SiteUser;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -31,6 +32,9 @@ public class Answer {
     // 순환 참조 해결 방법 (2) : 부모 Entity 와 자식 Entity 관계 명시
     @JsonBackReference
     private Question question;
+
+    @ManyToOne
+    private SiteUser author;
 
     Answer(Integer id, String content, LocalDateTime createDate, Question question) {
         this.id = id;

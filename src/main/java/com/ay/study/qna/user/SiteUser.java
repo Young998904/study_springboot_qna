@@ -33,6 +33,9 @@ public class SiteUser {
         this.email = email;
     }
 
+    public SiteUser (long id) {
+        this.id = id;    }
+
     public SiteUser addUser(String username, String email, String encodedPassword) {
         this.username =username;
         this.email = email;
