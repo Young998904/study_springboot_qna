@@ -11,6 +11,7 @@ import java.security.Principal;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,6 +72,7 @@ public class QuestionController {
         return "/question/question_form";
     }
     // 질문 등록 (POST)
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String createQuestion(@Valid RequestQuestionForm requestQuestionForm, BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {

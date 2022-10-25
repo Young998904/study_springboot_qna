@@ -9,6 +9,7 @@ import com.ay.study.qna.user.UserService;
 import java.security.Principal;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ public class AnswerController {
 
     private final UserService userService;
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
     public String createAnswer(@PathVariable int id, @Valid AddAnswer addAnswer, BindingResult bindingResult, QuestionDetail questionDetail, Model model, Principal principal) {
         if (bindingResult.hasErrors()) {
