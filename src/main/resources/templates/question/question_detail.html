@@ -14,7 +14,17 @@
         </div>
       </div>
     </div>
+
+    <div class="my-3">
+      <a onclick="if ( !confirm('정말로 추천하시겠습니까?') ) return false;" class="btn btn-sm btn-outline-secondary"
+         th:href="@{|/question/vote/${questionDetail.id}|}">
+        추천
+        <span class="badge rounded-pill bg-success" th:text="${#lists.size(questionDetail.voter)}"></span>
+      </a>
+    </div>
   </div>
+
+
 
   <!-- 답변의 갯수 표시 -->
   <h5 class="border-bottom my-3 py-2"

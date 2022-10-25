@@ -1,8 +1,10 @@
 package com.ay.study.qna.question;
 
 import com.ay.study.qna.answer.Answer;
+import com.ay.study.qna.user.SiteUser;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import javax.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,6 +37,7 @@ public class QuestionDto {
         private String content;
         private LocalDateTime createDate;
         private List<Answer> answerList;
+        private Set<SiteUser> voter;
         public static QuestionDetail fromEntity(Question question) {
             return QuestionDetail.builder()
                 .id(question.getId())
@@ -42,6 +45,7 @@ public class QuestionDto {
                 .content(question.getContent())
                 .createDate(question.getCreateDate())
                 .answerList(question.getAnswerList())
+                .voter(question.getVoter())
                 .build();
         }
     }

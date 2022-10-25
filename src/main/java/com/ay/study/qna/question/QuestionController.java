@@ -84,4 +84,14 @@ public class QuestionController {
         questionService.createQuestion(requestQuestionForm.getSubject(), requestQuestionForm.getContent(), siteUser);
         return "redirect:/question/list";
     }
+
+    // 추천
+    @GetMapping("/vote/{id}")
+    public String questionVote(Principal principal, @PathVariable Integer id) {
+        SiteUser siteUser = userService.getUser(principal.getName());
+
+        questionService.vote(id, siteUser);
+
+        return "redirect:/question/detail/%d".formatted(id);
+    }
 }

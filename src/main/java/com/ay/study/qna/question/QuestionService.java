@@ -1,5 +1,6 @@
 package com.ay.study.qna.question;
 
+import com.ay.study.qna.base.DataNotFoundException;
 import com.ay.study.qna.question.QuestionDto.QuestionDetail;
 import com.ay.study.qna.question.QuestionDto.QuestionInfo;
 import com.ay.study.qna.user.SiteUser;
@@ -30,5 +31,16 @@ public class QuestionService {
         Question question = new Question(subject, content, siteUser);
 
         questionRepository.save(question);
+    }
+
+    public void vote(Integer id, SiteUser siteUser) {
+        Question q = questionRepository.findById(id).orElse(null);
+
+        if (q == null) {
+            throw new DataNotFoundException("question not found");
+        }
+
+        q.getVoter().add(siteUser);
+        questionRepository.save(q);
     }
 }
