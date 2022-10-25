@@ -4,11 +4,13 @@ import com.ay.study.qna.question.Question;
 import com.ay.study.qna.user.SiteUser;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.time.LocalDateTime;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +38,8 @@ public class Answer {
     @ManyToOne
     private SiteUser author;
 
+    @ManyToMany
+    private Set<SiteUser> voter;
     Answer(Integer id, String content, LocalDateTime createDate, Question question) {
         this.id = id;
         this.content = content;
