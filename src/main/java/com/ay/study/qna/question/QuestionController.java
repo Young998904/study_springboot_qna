@@ -5,6 +5,9 @@ import com.ay.study.qna.answer.AnswerDto.AddAnswer;
 import com.ay.study.qna.question.QuestionDto.QuestionDetail;
 import com.ay.study.qna.question.QuestionDto.QuestionInfo;
 import com.ay.study.qna.question.QuestionDto.RequestQuestionForm;
+import com.ay.study.qna.user.SiteUser;
+import com.ay.study.qna.user.UserService;
+import java.security.Principal;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class QuestionController {
     private final QuestionService questionService;
+    private final UserService userService;
 
 //    @RequestMapping("/question/list")
 //    public String showList(Model model) {
@@ -68,11 +72,14 @@ public class QuestionController {
     }
     // 질문 등록 (POST)
     @PostMapping("/create")
-    public String createQuestion(@Valid RequestQuestionForm requestQuestionForm, BindingResult bindingResult) {
+    public String createQuestion(@Valid RequestQuestionForm requestQuestionForm, BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
             return "/question/question_form";
         }
-        questionService.createQuestion(requestQuestionForm.getSubject(), requestQuestionForm.getContent());
+
+        SiteUser siteUser = userService.getUser(principal.getName());
+
+        questionService.createQuestion(requestQuestionForm.getSubject(), requestQuestionForm.getContent(), siteUser);
         return "redirect:/question/list";
     }
 }

@@ -51,9 +51,10 @@ public class Question {
         getAnswerList().add(answer);
     }
 
-    public Question (String subject, String content) {
+    public Question (String subject, String content, SiteUser siteUser) {
         this.subject = subject;
         this.content = content;
+        this.author = siteUser;
 
         this.createDate = LocalDateTime.now();
     }

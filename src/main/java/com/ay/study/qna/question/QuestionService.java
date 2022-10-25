@@ -2,6 +2,7 @@ package com.ay.study.qna.question;
 
 import com.ay.study.qna.question.QuestionDto.QuestionDetail;
 import com.ay.study.qna.question.QuestionDto.QuestionInfo;
+import com.ay.study.qna.user.SiteUser;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class QuestionService {
             .map(QuestionDetail::fromEntity).orElse(null);
     }
 
-    public void createQuestion(String subject, String content) {
-        Question question = new Question(subject, content);
+    public void createQuestion(String subject, String content, SiteUser siteUser) {
+        Question question = new Question(subject, content, siteUser);
 
         questionRepository.save(question);
     }

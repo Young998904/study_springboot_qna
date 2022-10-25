@@ -1,6 +1,7 @@
 package com.ay.study.qna.answer;
 
 import com.ay.study.qna.question.Question;
+import com.ay.study.qna.user.SiteUser;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -16,11 +17,10 @@ public class AnswerDto {
         private String content;
         private LocalDateTime createDate;
         private Question question;
-
+        private SiteUser author;
         public AddAnswer (String content) {
             this.content = content;
             this.createDate = LocalDateTime.now();
-
         }
     }
 }
